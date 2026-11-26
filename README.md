@@ -37,6 +37,9 @@ script/Deploy.s.sol          deploy against tUSD8, with a no-broadcast simulatio
 
 ## The page
 
+![InvoiceRail page](ui/screenshot.png)
+
+
 `ui/index.html` is a static page that reads any deployment (RPC + contract address are inputs) and
 settles invoices through the browser wallet: load an invoice, pay it in parts with an automatic approval,
 withdraw, cancel after the due date. `ethers.umd.min.js` is vendored so the page works offline.
