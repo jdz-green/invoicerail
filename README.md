@@ -77,7 +77,7 @@ tUSD8 address.
 ## Commands
 
 ```console
-forge test                                             # 12 tests
+forge test                                             # 13 tests
 forge script script/Deploy.s.sol --fork-url https://rpc-test.qday.info   # simulate, no broadcast
 PRIVATE_KEY=0x... forge script script/Deploy.s.sol --rpc-url https://rpc-test.qday.info --broadcast
 ```
