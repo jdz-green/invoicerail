@@ -1,3 +1,5 @@
+![test](https://github.com/jdz-green/invoicerail/actions/workflows/test.yml/badge.svg)
+
 # InvoiceRail — stablecoin invoices on QDay Aevum
 
 A QDay Aevum Builder Challenge entry (deadline 2026-12-11, $1,500 USDT pool).
