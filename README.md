@@ -12,7 +12,7 @@ every state change emits an event a bookkeeper can reconcile without indexing ra
 |---|---|---|
 | issue | `createInvoice(id, amount, dueAt)` | unique id, future due date, amount > 0 |
 | pay | `pay(id, amount)` | partial payments; rejects overpay, past-due, cancelled, settled |
-| collect | `withdraw(id)` | merchant only; partial draws allowed |
+| collect | `withdraw(id)` | merchant only; sends everything collected so far |
 | expire | `cancel(id)` | merchant only, after the due date; stops payments |
 | read | `remaining(id)` | exact amount still due |
 
@@ -23,7 +23,7 @@ tokens that return no boolean (USDT-style) are supported.
 
 ```
 src/InvoiceRail.sol          the contract (no owner, no upgradeability, no fees)
-test/InvoiceRail.t.sol       12 Foundry tests (happy path, partial, overpay, past due, cancel,
+test/InvoiceRail.t.sol       13 Foundry tests (happy path, partial, overpay, past due, cancel,
                              permissions, no-return token, unknown invoice, zero amount, duplicate id)
 script/Deploy.s.sol          deploy against tUSD8, with a no-broadcast simulation mode
 ```
