@@ -1,5 +1,3 @@
-![test](https://github.com/jdz-green/invoicerail/actions/workflows/test.yml/badge.svg)
-
 # InvoiceRail — stablecoin invoices on QDay Aevum
 
 A QDay Aevum Builder Challenge entry (deadline 2026-12-11, $1,500 USDT pool).
@@ -36,6 +34,16 @@ script/Deploy.s.sol          deploy against tUSD8, with a no-broadcast simulatio
 - tUSD8 token: `0x456569838f1d43009A91ebA4263147Afd7233483` (1496 bytes of code on chain)
 - Faucet: `https://faucet.qday.info/en` — requires the address to hold ETH/USDT/USDC on Ethereum mainnet
   (anti-sybil), which is the current blocker for broadcasting a deployment
+
+## The page
+
+`ui/index.html` is a static page that reads any deployment (RPC + contract address are inputs) and
+settles invoices through the browser wallet: load an invoice, pay it in parts with an automatic approval,
+withdraw, cancel after the due date. `ethers.umd.min.js` is vendored so the page works offline.
+
+Verified against a local anvil fork of the Aevum testnet: with the contract deployed and one invoice
+created, the page rendered `merchant`, `amount`, `remaining`, `dueAt`, `settled`, `cancelled` and the token
+address straight from chain state.
 
 ## A full flow as a test
 
