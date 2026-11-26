@@ -1,0 +1,36 @@
+{
+ "title": "InvoiceRail \u2014 stablecoin invoices on QDay Aevum",
+ "seconds_per_slide": 4,
+ "slides": [
+  {
+   "heading": "The loop",
+   "body": "Issue an invoice in tUSD8, settle it in parts, withdraw whenever, cancel what expires.",
+   "code": "createInvoice(id, 250e18, dueAt)\npay(id, 100e18)   // remaining 150\npay(id, 150e18)   // remaining 0\nwithdraw(id)      // merchant balance 250\ncancel(id2)       // after expiry"
+  },
+  {
+   "heading": "What it refuses",
+   "body": "Overpayment, past-due payment, double settlement, partial withdrawal of more than is due, and anyone but the merchant.",
+   "code": "require(balanceOf(payer) >= amount, \"balance\")\nOverpay  -> revert\nPast due -> revert\nSettled  -> revert"
+  },
+  {
+   "heading": "The page",
+   "body": "A static page reads any deployment and settles invoices through the browser wallet.",
+   "image": "ui/screenshot.png"
+  },
+  {
+   "heading": "Why balance deltas",
+   "body": "Transfers are checked by the change in the token's balance, so a fee-on-transfer token cannot make the books lie.",
+   "code": "uint256 before = token.balanceOf(address(this));\ntoken.transferFrom(payer, address(this), amount);\nrequire(token.balanceOf(address(this)) - before == amount);"
+  },
+  {
+   "heading": "Thirteen tests",
+   "body": "Happy path, partial payments, overpay, expiry, cancellation, permissions, no-return token, unknown invoice, zero amount, duplicate id, and a full lifecycle transcript.",
+   "code": "forge test\nRan 2 test suites: 13 tests passed, 0 failed"
+  },
+  {
+   "heading": "Proven on the testnet state",
+   "body": "The deploy and the full invoice lifecycle are simulated against the live Aevum chain before any gas is spent.",
+   "code": "$ forge script script/Demo.s.sol:Demo --fork-url https://rpc-test.qday.info\n  1. invoice created for 250 tUSD8, due in 7 days\n  2. payer paid 100; remaining: 150\n  3. payer paid the last 150; remaining: 0\n  4. merchant withdrew: 250\n  5. second invoice expired and was cancelled by the merchant"
+  }
+ ]
+}
